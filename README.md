@@ -17,15 +17,13 @@ create keyspace pluralsight with replication = {'class': 'NetworkTopologyStrateg
 ```CQL
 create table courses (id varchar primary key);
 alter table courses add duration int;
-alter table courses add released timestamp;
-alter table courses add author varchar;
 alter table courses with comment = 'A table of courses';
 desc table courses;
 drop table courses;
 ```
 
 ```CQL
-create table couses (
+create table courses (
     id varchar primary key,
     name varchar,
     author varchar,
@@ -37,6 +35,36 @@ create table couses (
 ```
 
 ```CQL
+desc pluralsight;
+desc tables;
+desc table courses;
+```
+
+```CQL
+expand on;
+select * from courses;
+expand off;
+```
+
+```CQL
+tracing on;
+select * from courses;
+tracing off;
+```
+
+```CQL
+select id, cc, writetime(cc) from courses where id = 'advanced-javascript';
+update courses set cc = false where id = 'advanced-javascript';
+select id, cc, writetime(cc) from courses where id = 'advanced-javascript';
+```
+
+```CQL
+select id, token(author), token(cc) from courses;
+```
+
+```CQL
+update users using ttl 120 set reset_token = 'abc123' where id = 'john-doe';
+select ttl(reset_token) from users where id = 'john-doe';
 ```
 
 ## Commands
